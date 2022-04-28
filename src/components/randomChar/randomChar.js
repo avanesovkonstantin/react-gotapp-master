@@ -1,32 +1,106 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './randomChar.css';
+import GotService from '../services/gotService';
+import Spinner from '../spinners/spinner';
+import ErrorMessage from '../errors/errorMessage';
 
 export default class RandomChar extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            randomChar: {
+                name: "",
+                gender: "",
+                culture: "",
+                born: "",
+                died: ""
+            },
+            loading: true,
+            error: false
+        }
+        this.getRandomCharacter();
+    }
+
+    getRandomCharacter() {
+        const got = new GotService();
+        const id = Math.floor(Math.random() * (100 - 40) + 40);
+        // const id = 10000000000;
+        console.log(id);
+        got.getCharacterById(id)
+            .then((data) => {
+                this.setState(() => {
+                    return {
+                        randomChar: {
+                            name: data.name,
+                            gender: data.gender,
+                            culture: data.culture,
+                            born: data.born,
+                            died: data.died
+                        },
+                        loading: false,
+                        error: false
+                    }
+                });
+            })
+            .catch((err) => {
+                this.setState(() => {
+                    return {
+                        error: true,
+                        loading: false
+                    }
+                })
+            });
+
+    }
+
     render() {
+        const { randomChar, loading, error } = this.state;
+
+        let content = <View char={randomChar}></View>;
+
+        if (error) {
+            content = <ErrorMessage></ErrorMessage>
+        } else if (loading) {
+            content = <Spinner></Spinner>
+        }
 
         return (
             <div className="random-block rounded">
-                <h4>Random Character: John</h4>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item d-flex justify-content-between">
-                        <span className="term">Gender </span>
-                        <span>male</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between">
-                        <span className="term">Born </span>
-                        <span>11.03.1039</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between">
-                        <span className="term">Died </span>
-                        <span>13.09.1089</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between">
-                        <span className="term">Culture </span>
-                        <span>Anarchy</span>
-                    </li>
-                </ul>
+                {content}
             </div>
         );
     }
+}
+
+const View = ({ char }) => {
+
+    const { name, gender, culture, born, died } = char;
+
+    return (
+        <>
+            <div className="random-block rounded">
+                <h4>Random Character: {name}</h4>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex justify-content-between">
+                        <span className="term">Gender </span>
+                        <span>{gender}</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between">
+                        <span className="term">Born </span>
+                        <span>{born}</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between">
+                        <span className="term">Died </span>
+                        <span>{died}</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between">
+                        <span className="term">Culture </span>
+                        <span>{culture}</span>
+                    </li>
+                </ul>
+            </div>
+        </>
+    )
+
 }

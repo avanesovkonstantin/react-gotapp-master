@@ -1,9 +1,8 @@
 import React from "react";
 
 class GotService {
-	constructor(url) {
+	constructor() {
 		this._host = 'https://anapioficeandfire.com/api/';
-		this.url = url;
 	}
 
 	async getResource(url) {
