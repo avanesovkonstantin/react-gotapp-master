@@ -1,13 +1,12 @@
-import React from "react";
 
 class GotService {
 	constructor() {
 		this._host = 'https://anapioficeandfire.com/api/';
 	}
 
-	async getResource(url) {
+	async getResource(url, page=40) {
 
-		const res = await fetch(`${this._host}/${url}`);
+		const res = await fetch(`${this._host}/${url}?page=${page}&pageSize=10`);
 
 		if (!res.ok) {
 			throw new Error(`Coud not fetch. Status ${res.status}`);
@@ -17,12 +16,13 @@ class GotService {
 
 	};
 
-	getCharacters() {
-		return this.getResource('characters/');
+	getCharacters(page=40) {
+		return this.getResource('characters/', page);
 	}
 
-	getCharacterById(id) {
-		return this.getResource(`characters/${id}`);
+	getCharacterById(id, page=40) {
+		console.log(page)
+		return this.getResource(`characters/${id}`, page);
 	}
 
 }	

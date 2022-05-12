@@ -6,27 +6,29 @@ import ErrorMessage from '../errors/errorMessage';
 
 export default class RandomChar extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            randomChar: {
-                name: "",
-                gender: "",
-                culture: "",
-                born: "",
-                died: ""
-            },
-            loading: true,
-            error: false
-        }
-        this.getRandomCharacter();
+    state = {
+        randomChar: {
+            name: "",
+            gender: "",
+            culture: "",
+            born: "",
+            died: ""
+        },
+        loading: true,
+        error: false
     }
 
-    getRandomCharacter() {
+    componentDidMount() {
+        this.timerid = setInterval(this.getRandomCharacter, 4000);
+        this.getRandomCharacter();
+    }
+    componentWillUnmount() {
+        clearInterval(this.timerid);
+    }
+
+    getRandomCharacter = () => {
         const got = new GotService();
         const id = Math.floor(Math.random() * (100 - 40) + 40);
-        // const id = 10000000000;
-        console.log(id);
         got.getCharacterById(id)
             .then((data) => {
                 this.setState(() => {
