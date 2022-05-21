@@ -9,6 +9,7 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
+import ErrorMessage from '../errors/errorMessage';
 
 class App extends React.Component {
 
@@ -16,7 +17,8 @@ class App extends React.Component {
         super();
         this.state = {
             showRandomChar: true,
-            selectedCharId: null
+            selectedCharId: 130,
+            error: false
         }
     }
 
@@ -30,6 +32,15 @@ class App extends React.Component {
         })
     }
 
+    componentDidCatch() {
+        console.log('componentDidCatch')
+        this.setState(() => {
+            return {
+                error: true
+            }
+        })
+    }
+
     onCharSelected = (selectedCharId) => {
         this.setState({ selectedCharId })
     }
@@ -37,8 +48,13 @@ class App extends React.Component {
     render() {
 
         const {
-            showRandomChar
+            showRandomChar,
+            error
         } = this.state;
+
+        if (error) {
+            return <ErrorMessage></ErrorMessage>
+        }
 
         const RandomCharContent = showRandomChar ? < RandomChar /> : null;
 

@@ -21,7 +21,6 @@ class GotService {
 	}
 
 	getCharacterById(id, page=40) {
-		console.log(page)
 		return this.getResource(`characters/${id}`, page);
 	}
 

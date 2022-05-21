@@ -57,6 +57,7 @@ export default class RandomChar extends Component {
     }
 
     render() {
+        
         const { randomChar, loading, error } = this.state;
 
         let content = <View char={randomChar}></View>;

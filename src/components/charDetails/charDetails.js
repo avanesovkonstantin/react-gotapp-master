@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './charDetails.css';
 import GotService from '../services/gotService';
+import Spinner from 'reactstrap/lib/Spinner';
 export default class CharDetails extends Component {
 
     state = {
@@ -12,18 +13,31 @@ export default class CharDetails extends Component {
     }
 
     componentDidUpdate(preProps) {
-       
+
         if (!this.props.selectedCharId) {
             return
         }
 
         if (this.props.selectedCharId === preProps.selectedCharId) {
-            return; 
+            return;
         }
 
+        this.getCharacterById(this.props.selectedCharId)
+
+    }
+
+    componentDidMount() {
+        if (!this.props.selectedCharId) {
+            return
+        }
+        this.getCharacterById(this.props.selectedCharId)
+    }
+
+    getCharacterById = (Id) => {
+
         const got = new GotService();
-        
-        got.getCharacterById(this.props.selectedCharId)
+
+        got.getCharacterById(Id)
             .then((char) => {
                 this.setState({ char })
             })
@@ -36,7 +50,10 @@ export default class CharDetails extends Component {
 
         if (!this.state.char) {
             return (
-                <span className="char-details rounded">select a char</span>
+                <div className="random-block rounded">
+                    <span>Select a character...</span>
+                    <Spinner></Spinner>
+                </div>
             )
         }
 
