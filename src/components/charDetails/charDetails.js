@@ -14,23 +14,23 @@ export default class CharDetails extends Component {
 
     componentDidUpdate(preProps) {
 
-        if (!this.props.selectedCharId) {
+        if (!this.props.selectedItemId) {
             return
         }
 
-        if (this.props.selectedCharId === preProps.selectedCharId) {
+        if (this.props.selectedItemId === preProps.selectedItemId) {
             return;
         }
 
-        this.getCharacterById(this.props.selectedCharId)
+        this.getCharacterById(this.props.selectedItemId)
 
     }
 
     componentDidMount() {
-        if (!this.props.selectedCharId) {
+        if (!this.props.selectedItemId) {
             return
         }
-        this.getCharacterById(this.props.selectedCharId)
+        this.getCharacterById(this.props.selectedItemId)
     }
 
     getCharacterById = (Id) => {

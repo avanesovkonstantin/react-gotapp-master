@@ -7,17 +7,23 @@ export default class ItemList extends Component {
     gotService = new GotService();
 
     state = {
-        charlist: null,
-        selectedChar: null
+        itemlist: null,
+        // selectedChar: null
     }
 
     componentDidMount() {
         const page = Math.floor(Math.random() * (100 - 40) + 40);
-        this.gotService.getCharacters(page)
+
+        this.gotService[this.props.dataFunctionName](page)
             .then((data) => {
-                this.setState(({ charlist }) => {
+
+                data.forEach(element => {
+                    element['id'] = element.url.replace(this.gotService._basicUrl, '');
+                });
+
+                this.setState(({ itemlist }) => {
                     return {
-                        charlist: data
+                        itemlist: data
                     }
                 })
             })
@@ -26,14 +32,13 @@ export default class ItemList extends Component {
             })
     }
 
-    renderItems(charlist) {
-        return charlist.map((item) => {
-            const i = item.url.replace('https://anapioficeandfire.com/api/characters/', '');
+    renderItems(itemlist) {
+        return itemlist.map((item) => {
             return (
                 <li
-                    key={i}
+                    key={item.id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(i)}>
+                    onClick={() => this.props.onItemSelected(item.id)}>
                     {item.name}
                 </li>
             )
@@ -43,15 +48,15 @@ export default class ItemList extends Component {
 
     render() {
 
-        const { charlist } = this.state;
+        const { itemlist } = this.state;
 
-        if (!charlist) {
+        if (!itemlist) {
             return <Spinner></Spinner>
         }
 
         return (
             <ul className="item-list list-group">
-                {this.renderItems(charlist)}
+                {this.renderItems(itemlist)}
             </ul>
         );
     }

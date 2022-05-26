@@ -1,12 +1,15 @@
 
 class GotService {
 	constructor() {
-		this._host = 'https://anapioficeandfire.com/api/';
+		this._host = `https://anapioficeandfire.com/api/`;
+		this._basicUrl = '';
 	}
 
-	async getResource(url, page=40) {
+	async getResource(url, page = 40, id = '') {
 
-		const res = await fetch(`${this._host}/${url}?page=${page}&pageSize=10`);
+		this._basicUrl = `${this._host}${url}`;
+
+		const res = await fetch(`${this._host}${url}${id}?page=${page}&pageSize=10`);
 
 		if (!res.ok) {
 			throw new Error(`Coud not fetch. Status ${res.status}`);
@@ -16,14 +19,18 @@ class GotService {
 
 	};
 
-	getCharacters(page=40) {
+	getCharacters = async (page = 40) => {
 		return this.getResource('characters/', page);
 	}
 
-	getCharacterById(id, page=40) {
-		return this.getResource(`characters/${id}`, page);
+	getBooks = async (page = 0) => {
+		return this.getResource('books/', 0);
 	}
 
-}	
+	getCharacterById = async (id, page = 40) => {
+		return this.getResource(`characters/`, page, id);
+	}
+
+}
 
 export default GotService;
