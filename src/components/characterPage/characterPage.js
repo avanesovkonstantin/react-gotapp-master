@@ -1,8 +1,9 @@
 import React from "react";
 import ErrorMessage from "../errors/errorMessage";
 import ItemList from "../itemList";
-import CharDetails from "../charDetails";
-import RawBlock from "../rawBlock/rawBlock";
+import ItemDetails from "../itemDetails/itemDetails";
+import RawBlock from "../sectoring/rawBlock";
+import Field from "../sectoring/field";
 export default class CharacterPage extends React.Component {
 
 	state = {
@@ -40,8 +41,16 @@ export default class CharacterPage extends React.Component {
 		)
 
 		const charDetails = (
-			<CharDetails
-				selectedItemId={this.state.selectedCharId} />
+			<ItemDetails
+				selectedItemId={this.state.selectedCharId}
+				getDataFunctionName={'getCharacterById'}>
+
+				<Field field={'gender'}  label={'Gender'}> </Field>
+				<Field field={'born'} 	 label={'Born'}>   </Field>
+				<Field field={'died'} 	 label={'Died'}>   </Field>
+				<Field field={'culture'} label={'Culture'}></Field>
+
+			</ItemDetails>
 		)
 
 		return (

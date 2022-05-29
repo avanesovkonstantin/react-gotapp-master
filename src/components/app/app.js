@@ -10,6 +10,7 @@ import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import ErrorMessage from '../errors/errorMessage';
 import CharacterPage from '../characterPage/characterPage';
+
 class App extends React.Component {
 
     constructor() {
