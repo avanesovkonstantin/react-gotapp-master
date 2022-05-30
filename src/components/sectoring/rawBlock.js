@@ -1,6 +1,7 @@
 import React from "react"
 import {
-	Col
+	Col,
+	Row
 } from 'reactstrap';
 
 class RawBlock extends React.Component {
@@ -9,14 +10,15 @@ class RawBlock extends React.Component {
 		return (
 
 			<>
-				<Col md='6' >
-					{this.props.left}
-				</Col>
-				<Col md='6' >
-					{this.props.right}
-				</Col>
+				<Row>
+					<Col md='6' >
+						{this.props.left}
+					</Col>
+					<Col md='6' >
+						{this.props.right}
+					</Col>
+				</Row>
 			</>
-
 		)
 	}
 }

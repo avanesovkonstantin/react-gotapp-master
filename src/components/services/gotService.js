@@ -31,6 +31,10 @@ class GotService {
 		return this.getResource(`characters/`, page, id);
 	}
 
+	getBookById = async (id, page = 0) => {
+		return this.getResource(`books/`, page, id);
+	}
+
 }
 
 export default GotService;

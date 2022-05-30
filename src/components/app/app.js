@@ -7,9 +7,14 @@ import {
 } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
 import ErrorMessage from '../errors/errorMessage';
-import CharacterPage from '../characterPage/characterPage';
+import CharacterPage from '../pages/characterPage';
+import BooksPage from '../pages/booksPage';
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes
+} from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -53,37 +58,35 @@ class App extends React.Component {
 
         const RandomCharContent = showRandomChar ? < RandomChar /> : null;
 
-        return (<>
-            <Container >
-                <Header />
-            </Container>
-            <Container>
-                <Row >
-                    <Col lg={
-                        {
-                            size: 5,
-                            offset: 0
-                        }
-                    }>
-                        <Button color="dark"
-                            onClick={
-                                this.toggleshowRandomChar
-                            } > Toggle random character
-                        </Button> {
-                            RandomCharContent
-                        } </Col>
-                </Row>
-                <Row >
-                    <CharacterPage></CharacterPage>
-                    <Col md='6' >
-                        <ItemList
-                            dataFunctionName={'getBooks'}
-                            onItemSelected={this.onCharSelected}>
-                        </ItemList>
-                    </Col>
-                </Row>
-            </Container>
-        </>
+        return (
+            <Router>
+                <>
+                    <Container >
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row >
+                            <Col lg={
+                                {
+                                    size: 5,
+                                    offset: 0
+                                }
+                            }>
+                                <Button color="dark"
+                                    onClick={
+                                        this.toggleshowRandomChar
+                                    } > Toggle random character
+                                </Button> {
+                                    RandomCharContent
+                                } </Col>
+                        </Row>
+                        <Routes>
+                            <Route path='/characters' element={<CharacterPage/>} />
+                            <Route path='/books' element={<BooksPage/>} />
+                        </Routes>
+                    </Container>
+                </>
+            </Router>
         );
     }
 };
