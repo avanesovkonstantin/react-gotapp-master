@@ -1,50 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { Link } from "react-router-dom";
-
-const HeaderBlock = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-`;
-
-const HeaderTitle = styled.h3`
-    font-size: 24px;
-    color: #fff;
-    margin: 0;
-`;
-
-const HeaderLinks = styled.ul`
-    display: flex;
-    margin: 0;
-    align-items: center;
-    color: #fff;
-    list-style-type: none;
-    li {
-        margin-right: 20px;
-        font-size: 18px;
-    }
-`;
+import './header.css';
 
 const Header = () => {
     return (
-        <div>
-            <HeaderBlock>
-                <HeaderTitle>
-                    <Link to="/">Game of Thrones DB</Link>
-                </HeaderTitle>
-                <HeaderLinks>
-                    <ul>
-                        <li>
-                            <Link to="/characters/">Characters</Link>
-                        </li>
-                        <li>
-                            <Link to="/books/">Books</Link>
-                        </li>
-                    </ul>
-                </HeaderLinks>
-            </HeaderBlock>
+        <div className="header">
+            <h3 className="header-title">
+                <Link className="header-title" to="/">Game of Thrones DB</Link>
+                {/* Game of Thrones DB     */}
+            </h3>
+            <ul className='header-ul'>
+                <li className='header-li'>
+                    <Link to="/characters/">Characters</Link>
+                </li>
+                <li className='header-li'>
+                    <Link to="/books/">Books</Link>
+                </li>
+            </ul>
         </div>
     );
 };

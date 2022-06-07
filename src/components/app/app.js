@@ -10,6 +10,7 @@ import RandomChar from '../randomChar';
 import ErrorMessage from '../errors/errorMessage';
 import CharacterPage from '../pages/characterPage';
 import BooksPage from '../pages/booksPage';
+import BooksItem from '../pages/booksItem';
 import {
     BrowserRouter as Router,
     Route,
@@ -81,8 +82,10 @@ class App extends React.Component {
                                 } </Col>
                         </Row>
                         <Routes>
-                            <Route path='/characters' element={<CharacterPage/>} />
-                            <Route path='/books' element={<BooksPage/>} />
+                            <Route path="/" element={< RandomChar />} />
+                            <Route path='/characters' element={<CharacterPage />} />
+                            <Route path='/books' exact element={<BooksPage />} />
+                            <Route path='/books/:id' element={<BooksItem />} />
                         </Routes>
                     </Container>
                 </>

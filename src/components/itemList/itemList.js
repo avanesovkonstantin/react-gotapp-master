@@ -8,7 +8,6 @@ export default class ItemList extends Component {
 
     state = {
         itemlist: null,
-        // selectedChar: null
     }
 
     componentDidMount() {
@@ -38,7 +37,7 @@ export default class ItemList extends Component {
                 <li
                     key={item.id}
                     className="list-group-item"
-                    onClick={() => this.props.onItemSelected(item.id)}>
+                    onClick={() => onItemSelected(item.id)}>
                     {item.name}
                 </li>
             )
